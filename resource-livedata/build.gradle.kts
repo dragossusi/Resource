@@ -36,7 +36,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
 
-    api("ro.dragossusi:resource:1.0")
+    api("ro.dragossusi:resource:${Versions.app}")
 
     api("ro.dragossusi:livedata-common:1.0.0")
 
@@ -58,7 +58,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = "ro.dragossusi"
                 artifactId = "resource-livedata"
-                version = "1.0.0"
+                version = Versions.app
 
                 pom {
                     name.set("Resource")

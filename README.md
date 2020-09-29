@@ -9,7 +9,7 @@ Resource classes to handle loading, success and error.
 Gradle:
 ```gradle
 dependencies {
-  implementation 'ro.dragossusi:resource:1.0.0'
+  implementation 'ro.dragossusi:resource:1.0.1'
 }
 ```
 
@@ -24,5 +24,5 @@ If you want to use with livedata there is a helper library for that
 Gradle:
 ```gradle
 dependencies {
-  implementation 'ro.dragossusi:resource-livedata:1.0.0'
+  implementation 'ro.dragossusi:resource-livedata:1.0.1'
 }
