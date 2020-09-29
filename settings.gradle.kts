@@ -1,2 +1,2 @@
-include(":resource")
+include(":resource",":resource-livedata")
 rootProject.name = "Resource"

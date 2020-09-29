@@ -1,17 +1,16 @@
 import java.io.FileInputStream
 import java.util.*
 
-
 plugins {
+    `maven-publish`
+    signing
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
-    `maven-publish`
-    signing
 }
 
 android {
-    compileSdkVersion (30)
+    compileSdkVersion(30)
 
     defaultConfig {
         minSdkVersion(21)
@@ -40,12 +39,16 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
 
-    api("ro.dragossusi:errordata:1.0")
+    api("ro.dragossusi:resource:1.0")
+
+    api("ro.dragossusi:livedata-common:1.0.0")
 
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+
 }
+
 
 afterEvaluate {
     val localProps = Properties()
@@ -59,7 +62,7 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = "ro.dragossusi"
-                artifactId = "resource"
+                artifactId = "resource-livedata"
                 version = "1.0.0"
 
                 pom {
@@ -80,8 +83,8 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection.set("scm:git:git://github.com/dragossusi/Error-Data.git")
-                        developerConnection.set("scm:git:ssh://github.com/dragossusi/Error-Data.git")
+                        connection.set("scm:git:git://github.com/dragossusi/Resource.git")
+                        developerConnection.set("scm:git:ssh://github.com/dragossusi/Resource.git")
                         url.set("https://github.com/dragossusi/Resource/")
                     }
                 }

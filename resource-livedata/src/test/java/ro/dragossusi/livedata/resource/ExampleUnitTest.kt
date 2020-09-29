@@ -1,4 +1,4 @@
-package ro.dragossusi.resource
+package ro.dragossusi.livedata.resource
 
 import org.junit.Test
 
