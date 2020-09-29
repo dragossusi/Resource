@@ -1,6 +1,5 @@
 package ro.dragossusi
 
-import androidx.lifecycle.LiveDataScope
 import ro.dragossusi.livedata.extensions.completionResourceLiveData
 import ro.dragossusi.livedata.extensions.dataResourceLiveData
 import ro.dragossusi.resource.CompletionResource
@@ -19,9 +18,9 @@ interface DataSource {
 }
 
 fun <T> DataSource.dataResourceLiveData(
-    block: suspend LiveDataScope<DataResource<T>?>.() -> Unit
+    block: suspend () -> DataResource<T>
 ) = dataResourceLiveData<T>(context, block)
 
 fun DataSource.completionResourceLiveData(
-    block: suspend LiveDataScope<CompletionResource?>.() -> Unit
+    block: suspend () -> CompletionResource
 ) = completionResourceLiveData(context, block)

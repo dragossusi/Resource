@@ -1,6 +1,3 @@
-import java.io.FileInputStream
-import java.util.*
-
 plugins {
     `maven-publish`
     signing
@@ -51,8 +48,6 @@ dependencies {
 
 
 afterEvaluate {
-    val localProps = Properties()
-    localProps.load(FileInputStream(file("maven.properties")))
     publishing {
         publications {
             // Creates a Maven publication called "release".
@@ -95,8 +90,8 @@ afterEvaluate {
                 name = "sonatype"
                 url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
                 credentials {
-                    username = localProps.getProperty("sonatype.username")
-                    password = localProps.getProperty("sonatype.password")
+                    username = project.property("sonatype.username").toString()
+                    password = project.property("sonatype.password").toString()
                 }
             }
         }

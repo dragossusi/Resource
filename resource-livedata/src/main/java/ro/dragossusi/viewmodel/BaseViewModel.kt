@@ -22,13 +22,13 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun <T> observableData(): ObservableLiveData<DataResource<T>> {
         val observable = ObservableLiveData<DataResource<T>>()
-        _loadingLiveData += observable
+        addLoadingSource(observable)
         return observable
     }
 
     protected fun observableCompletion(): ObservableLiveData<CompletionResource> {
         val observable = ObservableLiveData<CompletionResource>()
-        _loadingLiveData += observable
+        addLoadingSource(observable)
         return observable
     }
 
