@@ -1,7 +1,7 @@
 package ro.dragossusi.observer
 
+import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.CompletionResource
-import ro.rachieru.dragos.errordata.handler.ErrorDataHandler
 
 /**
  *
@@ -9,8 +9,8 @@ import ro.rachieru.dragos.errordata.handler.ErrorDataHandler
  * @since 10.06.2020
  */
 abstract class CompletionResourceObserver(
-    errorDataHandler: ErrorDataHandler?
-) : BaseResourceObserver<CompletionResource>(errorDataHandler) {
+    messageDataHandler: MessageDataHandler?
+) : BaseResourceObserver<CompletionResource>(messageDataHandler) {
 
     override fun onSuccessStatus(resource: CompletionResource) {
         onCompleted()

@@ -1,7 +1,7 @@
 package ro.dragossusi.observer
 
+import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.DataResource
-import ro.rachieru.dragos.errordata.handler.ErrorDataHandler
 
 
 /**
@@ -10,7 +10,7 @@ import ro.rachieru.dragos.errordata.handler.ErrorDataHandler
  * @since 10.06.2020
  */
 open class DataResourceObserver<T>(
-    errorDataHandler: ErrorDataHandler? = null
+    errorDataHandler: MessageDataHandler? = null
 ) : BaseResourceObserver<DataResource<T>>(errorDataHandler) {
 
     override fun onSuccessStatus(resource: DataResource<T>) {

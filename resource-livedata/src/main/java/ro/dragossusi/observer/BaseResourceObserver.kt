@@ -3,10 +3,10 @@ package ro.dragossusi.observer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import ro.dragossusi.messagedata.MessageData
+import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.ResourceStatus
-import ro.rachieru.dragos.errordata.ErrorData
-import ro.rachieru.dragos.errordata.handler.ErrorDataHandler
 
 /**
  *
@@ -14,7 +14,7 @@ import ro.rachieru.dragos.errordata.handler.ErrorDataHandler
  * @since 06.07.2020
  */
 abstract class BaseResourceObserver<T : CompletionResource>(
-    val errorDataHandler: ErrorDataHandler?
+    val messageDataHandler: MessageDataHandler?
 ) : Observer<T?> {
 
     private val _loadingLiveData = MutableLiveData(false)
@@ -30,7 +30,7 @@ abstract class BaseResourceObserver<T : CompletionResource>(
             ResourceStatus.ERROR -> {
                 onFinished(false)
                 val error = resource.requireError()
-                if (errorDataHandler != null && errorDataHandler.routeErrorData(error)) return
+                if (messageDataHandler != null && messageDataHandler.routeErrorData(error)) return
                 onFailure(error)
             }
             ResourceStatus.SUCCESS -> {
@@ -46,7 +46,7 @@ abstract class BaseResourceObserver<T : CompletionResource>(
 
     protected open fun onFinished(success: Boolean) {}
 
-    protected open fun onFailure(error: ErrorData) {
+    protected open fun onFailure(error: MessageData) {
     }
 
 }

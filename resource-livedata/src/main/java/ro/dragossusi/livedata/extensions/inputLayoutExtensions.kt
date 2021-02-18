@@ -1,7 +1,8 @@
 package ro.dragossusi.livedata.extensions
 
 import android.widget.EditText
-import ro.rachieru.dragos.errordata.ErrorData
+import ro.dragossusi.messagedata.MessageData
+import ro.dragossusi.messagedata.parser.MessageDataParser
 
 /**
  *
@@ -9,8 +10,9 @@ import ro.rachieru.dragos.errordata.ErrorData
  * @since 09.07.2020
  */
 fun EditText.setEditTextError(
-    errorData: ErrorData?
-) = setEditTextError(errorData?.getError(resources), errorData != null)
+    errorData: MessageData?,
+    parser: MessageDataParser
+) = setEditTextError(errorData?.getMessage(parser), errorData != null)
 
 fun EditText.setEditTextError(
     errorMessage: String? = null,

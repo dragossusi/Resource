@@ -1,10 +1,7 @@
 package ro.dragossusi.resource
 
 import androidx.annotation.StringRes
-import ro.rachieru.dragos.errordata.ErrorData
-import ro.rachieru.dragos.errordata.StringErrorData
-import ro.rachieru.dragos.errordata.StringResErrorData
-import ro.rachieru.dragos.errordata.ThrowableErrorData
+import ro.dragossusi.messagedata.*
 
 /**
  *
@@ -14,7 +11,7 @@ import ro.rachieru.dragos.errordata.ThrowableErrorData
 open class DataResource<out T> protected constructor(
     status: ResourceStatus,
     val data: T?,
-    error: ErrorData?
+    error: MessageData?
 ) : CompletionResource(status, error) {
 
     fun requireData(): T = data ?: throw Exception("Data is null, status: $status")
@@ -28,7 +25,7 @@ open class DataResource<out T> protected constructor(
     companion object {
 
         @JvmStatic
-        fun <T> error(errorData: ErrorData) =
+        fun <T> error(errorData: MessageData) =
             DataResource<T>(
                 status = ResourceStatus.ERROR,
                 data = null,
@@ -38,17 +35,12 @@ open class DataResource<out T> protected constructor(
         @JvmStatic
         fun <T> error(
             throwable: Throwable
-        ) = error<T>(errorData = ThrowableErrorData(throwable))
+        ) = error<T>(errorData = ThrowableMessageData(throwable))
 
         @JvmStatic
         fun <T> error(
             message: String
-        ) = error<T>(errorData = StringErrorData(message))
-
-        @JvmStatic
-        fun <T> error(
-            @StringRes stringCode: Int
-        ) = error<T>(errorData = StringResErrorData(stringCode))
+        ) = error<T>(errorData = StringMessageData(message))
 
         @JvmStatic
         fun <T> loading() =

@@ -1,7 +1,3 @@
-import java.io.FileInputStream
-import java.util.*
-
-
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -11,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion (30)
+    compileSdkVersion(30)
 
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode = 1
-        versionName = "1.0"
+        versionName = Versions.app
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -37,18 +33,18 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
-    implementation("androidx.core:core-ktx:1.3.1")
+    implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
 
-    api("ro.dragossusi:errordata:1.0")
+    api("ro.dragossusi:messagedata:${Versions.app}")
+    api("ro.dragossusi:messagedata-android:${Versions.app}")
 
-    testImplementation("junit:junit:4.13")
+    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
 
 afterEvaluate {
-    val localProps = Properties()
     publishing {
         publications {
             // Creates a Maven publication called "release".

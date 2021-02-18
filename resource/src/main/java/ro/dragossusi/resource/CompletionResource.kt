@@ -1,8 +1,6 @@
 package ro.dragossusi.resource
 
-import ro.rachieru.dragos.errordata.ErrorData
-import ro.rachieru.dragos.errordata.StringErrorData
-import ro.rachieru.dragos.errordata.ThrowableErrorData
+import ro.dragossusi.messagedata.*
 
 /**
  *
@@ -11,7 +9,7 @@ import ro.rachieru.dragos.errordata.ThrowableErrorData
  */
 open class CompletionResource(
     val status: ResourceStatus,
-    val error: ErrorData?
+    val error: MessageData?
 ) {
 
     val isSuccessful: Boolean
@@ -23,7 +21,7 @@ open class CompletionResource(
     val isLoading: Boolean
         get() = status == ResourceStatus.LOADING
 
-    fun requireError(): ErrorData = error ?: throw Exception("Error null, status: $status")
+    fun requireError(): MessageData = error ?: throw Exception("Error null, status: $status")
 
     inline fun <T : CompletionResource> mapTo(block: (CompletionResource) -> T): T {
         return block(this)
@@ -50,7 +48,7 @@ open class CompletionResource(
             )
 
         @JvmStatic
-        fun error(error: ErrorData?) =
+        fun error(error: MessageData?) =
             CompletionResource(
                 status = ResourceStatus.ERROR,
                 error = error
@@ -58,14 +56,14 @@ open class CompletionResource(
 
         @JvmStatic
         fun error(message: String) = error(
-            error = StringErrorData(message)
+            error = StringMessageData(message)
         )
 
         @JvmStatic
         fun error(throwable: Throwable) =
             CompletionResource(
                 status = ResourceStatus.ERROR,
-                error = ThrowableErrorData(throwable)
+                error = ThrowableMessageData(throwable)
             )
 
     }

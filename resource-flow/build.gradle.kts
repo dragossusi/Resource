@@ -38,7 +38,7 @@ dependencies {
 
     api(project(":resource"))
 
-    api("ro.dragossusi:livedata-common:${Versions.app}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
