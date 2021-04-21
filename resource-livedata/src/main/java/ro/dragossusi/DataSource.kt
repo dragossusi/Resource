@@ -18,9 +18,9 @@ interface DataSource {
 }
 
 fun <T> DataSource.dataResourceLiveData(
-    block: suspend () -> DataResource<T>
+    block: suspend () -> T
 ) = dataResourceLiveData<T>(context, block)
 
 fun DataSource.completionResourceLiveData(
-    block: suspend () -> CompletionResource
+    block: suspend () -> Unit
 ) = completionResourceLiveData(context, block)

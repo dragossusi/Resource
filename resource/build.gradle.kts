@@ -37,7 +37,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
 
     api("ro.dragossusi:messagedata:${Versions.app}")
-    api("ro.dragossusi:messagedata-android:${Versions.app}")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")

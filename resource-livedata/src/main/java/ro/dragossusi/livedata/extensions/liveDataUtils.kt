@@ -18,11 +18,12 @@ import kotlin.coroutines.CoroutineContext
  */
 fun <T> dataResourceLiveData(
     context: CoroutineContext,
-    block: suspend () -> DataResource<T>
+    block: suspend () -> T
 ): ResourceLiveData<T> = liveData(context) {
     try {
         emit(DataResource.loading())
-        emit(block())
+        val data = block()
+        emit(DataResource.success(data))
     } catch (t: Throwable) {
         t.printStackTrace()
         emit(DataResource.error<T>(t))
@@ -31,11 +32,12 @@ fun <T> dataResourceLiveData(
 
 fun completionResourceLiveData(
     context: CoroutineContext,
-    block: suspend () -> CompletionResource
+    block: suspend () -> Unit
 ): CompletionLiveData = liveData(context) {
     try {
         emit(CompletionResource.loading())
-        emit(block())
+        block()
+        emit(CompletionResource.completed())
     } catch (t: Throwable) {
         t.printStackTrace()
         emit(CompletionResource.error(t))

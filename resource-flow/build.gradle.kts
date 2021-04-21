@@ -38,7 +38,10 @@ dependencies {
 
     api(project(":resource"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    //logs
+    implementation("com.jakewharton.timber:timber:4.7.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
@@ -57,7 +60,7 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = "ro.dragossusi"
-                artifactId = "resource-livedata"
+                artifactId = "resource-flow"
                 version = Versions.app
 
                 pom {

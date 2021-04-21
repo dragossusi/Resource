@@ -15,7 +15,7 @@ fun EditText.setEditTextError(
 ) = setEditTextError(errorData?.getMessage(parser), errorData != null)
 
 fun EditText.setEditTextError(
-    errorMessage: String? = null,
+    errorMessage: CharSequence? = null,
     showError: Boolean = errorMessage != null
 ) {
     if (showError) {
