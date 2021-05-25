@@ -1,7 +1,8 @@
 package ro.dragossusi.resource
 
-import androidx.annotation.StringRes
-import ro.dragossusi.messagedata.*
+import ro.dragossusi.messagedata.MessageData
+import ro.dragossusi.messagedata.StringMessageData
+import ro.dragossusi.messagedata.ThrowableMessageData
 
 /**
  *
@@ -16,11 +17,10 @@ open class DataResource<out T> protected constructor(
 
     fun requireData(): T = data ?: throw Exception("Data is null, status: $status")
 
-    fun toCompletion() =
-        CompletionResource(
-            status,
-            error
-        )
+    fun toCompletion() = CompletionResource(
+        status,
+        error
+    )
 
     companion object {
 

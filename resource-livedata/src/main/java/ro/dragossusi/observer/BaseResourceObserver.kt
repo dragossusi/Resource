@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import ro.dragossusi.messagedata.MessageData
 import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.CompletionResource
+import ro.dragossusi.resource.OnFailureListener
+import ro.dragossusi.resource.OnFinishListener
 import ro.dragossusi.resource.ResourceStatus
 
 /**
@@ -16,6 +18,17 @@ import ro.dragossusi.resource.ResourceStatus
 abstract class BaseResourceObserver<T : CompletionResource>(
     val messageDataHandler: MessageDataHandler?
 ) : Observer<T?> {
+
+    private val onFinishListeners = mutableListOf<OnFinishListener>()
+    private val onFailureListeners = mutableListOf<OnFailureListener>()
+
+    fun onFinish(listener: OnFinishListener) {
+        onFinishListeners += listener
+    }
+
+    fun onFailure(listener: OnFailureListener) {
+        onFailureListeners += listener
+    }
 
     private val _loadingLiveData = MutableLiveData(false)
     val loadingLiveData: LiveData<Boolean>
@@ -44,9 +57,16 @@ abstract class BaseResourceObserver<T : CompletionResource>(
 
     protected abstract fun onSuccessStatus(resource: T)
 
-    protected open fun onFinished(success: Boolean) {}
+    protected fun onFinished(success: Boolean) {
+        onFinishListeners.forEach {
+            it.onFinish(success)
+        }
+    }
 
-    protected open fun onFailure(error: MessageData) {
+    protected fun onFailure(error: MessageData) {
+        onFailureListeners.forEach {
+            it.onFailure(error)
+        }
     }
 
 }

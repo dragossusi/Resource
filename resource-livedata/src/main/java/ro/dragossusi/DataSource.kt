@@ -1,9 +1,7 @@
 package ro.dragossusi
 
-import ro.dragossusi.livedata.extensions.completionResourceLiveData
-import ro.dragossusi.livedata.extensions.dataResourceLiveData
-import ro.dragossusi.resource.CompletionResource
-import ro.dragossusi.resource.DataResource
+import ro.dragossusi.livedata.extensions.completionLiveData
+import ro.dragossusi.livedata.extensions.resourceLiveData
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -17,10 +15,10 @@ interface DataSource {
 
 }
 
-fun <T> DataSource.dataResourceLiveData(
+fun <T> DataSource.resourceLiveData(
     block: suspend () -> T
-) = dataResourceLiveData<T>(context, block)
+) = resourceLiveData<T>(context, block)
 
-fun DataSource.completionResourceLiveData(
+fun DataSource.completionLiveData(
     block: suspend () -> Unit
-) = completionResourceLiveData(context, block)
+) = completionLiveData(context, block)

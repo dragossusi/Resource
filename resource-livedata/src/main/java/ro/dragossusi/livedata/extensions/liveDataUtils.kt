@@ -1,7 +1,6 @@
 package ro.dragossusi.livedata.extensions
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import ro.dragossusi.livedata.CompletionLiveData
@@ -16,7 +15,7 @@ import kotlin.coroutines.CoroutineContext
  * @author Dragos
  * @since 15.06.2020
  */
-fun <T> dataResourceLiveData(
+internal fun <T> resourceLiveData(
     context: CoroutineContext,
     block: suspend () -> T
 ): ResourceLiveData<T> = liveData(context) {
@@ -30,7 +29,7 @@ fun <T> dataResourceLiveData(
     }
 }
 
-fun completionResourceLiveData(
+internal fun completionLiveData(
     context: CoroutineContext,
     block: suspend () -> Unit
 ): CompletionLiveData = liveData(context) {
@@ -43,8 +42,6 @@ fun completionResourceLiveData(
         emit(CompletionResource.error(t))
     }
 }
-
-fun <T> staticLiveData(value: T?): LiveData<T?> = MutableLiveData(value)
 
 fun <T, R> LiveData<DataResource<T>?>.mapSuccess(
     transform: T.() -> DataResource<R>

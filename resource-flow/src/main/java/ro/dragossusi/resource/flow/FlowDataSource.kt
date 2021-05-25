@@ -1,7 +1,7 @@
-package ro.dragossusi
+package ro.dragossusi.resource.flow
 
-import ro.dragossusi.flow.extensions.completionFlow
-import ro.dragossusi.flow.extensions.resourceFlow
+import ro.dragossusi.resource.flow.extensions.completionFlow
+import ro.dragossusi.resource.flow.extensions.resourceFlow
 import kotlin.coroutines.CoroutineContext
 
 /**

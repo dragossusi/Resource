@@ -1,6 +1,8 @@
 package ro.dragossusi.resource
 
-import ro.dragossusi.messagedata.*
+import ro.dragossusi.messagedata.MessageData
+import ro.dragossusi.messagedata.StringMessageData
+import ro.dragossusi.messagedata.ThrowableMessageData
 
 /**
  *
@@ -22,14 +24,6 @@ open class CompletionResource(
         get() = status == ResourceStatus.LOADING
 
     fun requireError(): MessageData = error ?: throw Exception("Error null, status: $status")
-
-    inline fun <T : CompletionResource> mapTo(block: (CompletionResource) -> T): T {
-        return block(this)
-    }
-
-    inline fun onSuccess(block: () -> Unit) {
-        if (isSuccessful) block()
-    }
 
     companion object {
 

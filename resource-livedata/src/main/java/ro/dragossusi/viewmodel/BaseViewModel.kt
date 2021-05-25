@@ -3,9 +3,9 @@ package ro.dragossusi.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import ro.dragossusi.livedata.LoadingLiveData
+import ro.dragossusi.livedata.ObservableLiveData
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.DataResource
-import ro.dragossusi.livedata.ObservableLiveData
 
 
 /**

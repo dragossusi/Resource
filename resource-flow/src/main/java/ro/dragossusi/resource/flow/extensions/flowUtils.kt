@@ -1,14 +1,14 @@
-package ro.dragossusi.flow.extensions
+package ro.dragossusi.resource.flow.extensions
 
+import android.media.MediaSync
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import ro.dragossusi.flow.CompletionFlow
-import ro.dragossusi.flow.ResourceFlow
 import ro.dragossusi.messagedata.MessageData
 import ro.dragossusi.messagedata.error.MessageDataException
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.DataResource
-import ro.dragossusi.resource.ResourceStatus
+import ro.dragossusi.resource.OnFailureListener
+import ro.dragossusi.resource.OnSuccessListener
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -29,10 +29,12 @@ fun <T> Flow<T>.startWithNull(): Flow<T?> {
     }
 }
 
-fun <T : CompletionResource> Flow<T>.onError(body: suspend (MessageData?) -> Unit): Flow<T> {
+fun <T : CompletionResource> Flow<T>.onError(
+    body: OnFailureListener
+): Flow<T> {
     return onEach {
         if (it.isFailed)
-            body(it.error)
+            body.onFailure(it.error)
     }
 }
 
@@ -40,20 +42,20 @@ fun <T : CompletionResource> Flow<T>.onError(body: suspend (MessageData?) -> Uni
  * Execute on success
  */
 fun <T> Flow<DataResource<T>>.onSuccess(
-    body: suspend (T?) -> Unit
+    body: OnSuccessListener<T>
 ): Flow<DataResource<T>> = onEach {
     if (it.isSuccessful)
-        body(it.data)
+        body.onSuccess(it.data)
 }.flowOn(Dispatchers.Main)
 
 /**
  * Execute on finish
  */
-fun <T> Flow<DataResource<T>>.onFinish(
-    body: suspend (DataResource<T>) -> Unit
-): Flow<DataResource<T>> = onEach {
+fun <R : CompletionResource> Flow<R>.onFinish(
+    body: suspend (Boolean) -> Unit
+): Flow<R> = onEach {
     if (!it.isLoading)
-        body(it)
+        body(it.isSuccessful)
 }.flowOn(Dispatchers.Main)
 
 /**
@@ -67,7 +69,7 @@ fun <T : CompletionResource> Flow<T>.onCompleted(
 }.flowOn(Dispatchers.Main)
 
 
-fun <T> resourceFlow(
+internal fun <T> resourceFlow(
     context: CoroutineContext = Dispatchers.IO,
     body: suspend () -> T
 ): Flow<DataResource<T>> {
@@ -91,7 +93,7 @@ fun <T> resourceFlow(
         }
 }
 
-fun completionFlow(
+internal fun completionFlow(
     context: CoroutineContext = Dispatchers.IO,
     body: suspend () -> Unit
 ): Flow<CompletionResource> {
