@@ -3,6 +3,7 @@ package ro.dragossusi.resource
 import ro.dragossusi.messagedata.MessageData
 import ro.dragossusi.messagedata.StringMessageData
 import ro.dragossusi.messagedata.ThrowableMessageData
+import ro.dragossusi.messagedata.toMessageData
 
 /**
  *
@@ -57,7 +58,7 @@ open class CompletionResource(
         fun error(throwable: Throwable) =
             CompletionResource(
                 status = ResourceStatus.ERROR,
-                error = ThrowableMessageData(throwable)
+                error = throwable.toMessageData()
             )
 
     }

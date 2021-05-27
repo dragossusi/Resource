@@ -22,9 +22,8 @@ internal fun <T> resourceLiveData(
     try {
         emit(DataResource.loading())
         val data = block()
-        emit(DataResource.success(data))
+        emit(DataResource.success<T>(data))
     } catch (t: Throwable) {
-        t.printStackTrace()
         emit(DataResource.error<T>(t))
     }
 }
@@ -38,20 +37,6 @@ internal fun completionLiveData(
         block()
         emit(CompletionResource.completed())
     } catch (t: Throwable) {
-        t.printStackTrace()
         emit(CompletionResource.error(t))
-    }
-}
-
-fun <T, R> LiveData<DataResource<T>?>.mapSuccess(
-    transform: T.() -> DataResource<R>
-): LiveData<DataResource<R>?> {
-    return Transformations.map(this) {
-        if (it == null) return@map null
-        when (it.status) {
-            ResourceStatus.SUCCESS -> transform(it.requireData())
-            ResourceStatus.ERROR -> DataResource.error(it.requireError())
-            ResourceStatus.LOADING -> DataResource.loading()
-        }
     }
 }
