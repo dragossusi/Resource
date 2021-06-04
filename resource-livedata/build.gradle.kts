@@ -33,12 +33,12 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.core:core-ktx:1.5.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
 
     api(project(":resource"))
 
-    api("ro.dragossusi:livedata-common:${Versions.app}")
+    api("ro.dragossusi:livedata-common:${Versions.commons}")
 
     //logs
     implementation("com.jakewharton.timber:timber:4.7.1")

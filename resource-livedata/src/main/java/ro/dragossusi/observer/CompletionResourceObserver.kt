@@ -1,8 +1,10 @@
 package ro.dragossusi.observer
 
+import kotlinx.coroutines.flow.flowOf
 import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.OnCompletedListener
+import ro.dragossusi.resource.OnSuccessListener
 
 /**
  *
@@ -15,6 +17,10 @@ class CompletionResourceObserver(
 
     private val onCompletedListeners = mutableListOf<OnCompletedListener>()
 
+    fun addOnCompletedListener(listener: OnCompletedListener) {
+        onCompletedListeners += listener
+    }
+
     override fun onSuccessStatus(resource: CompletionResource) {
         onCompleted()
     }
@@ -25,4 +31,10 @@ class CompletionResourceObserver(
         }
     }
 
+}
+
+fun CompletionResourceObserver.onCompleted(
+    listener: OnCompletedListener
+): CompletionResourceObserver = apply {
+    addOnCompletedListener(listener)
 }

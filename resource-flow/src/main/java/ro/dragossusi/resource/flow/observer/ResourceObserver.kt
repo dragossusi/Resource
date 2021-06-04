@@ -1,4 +1,4 @@
-package ro.dragossusi.sevens.android.livedata.observer
+package ro.dragossusi.resource.flow.observer
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +12,6 @@ import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.OnFailureListener
 import ro.dragossusi.resource.OnFinishListener
 import ro.dragossusi.resource.flow.extensions.onFinish
-import ro.dragossusi.resource.flow.observer.FlowObserver
 
 open class ResourceObserver<T : CompletionResource>(
     private val errorHandler: MessageDataHandler?,

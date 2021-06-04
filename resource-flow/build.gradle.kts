@@ -39,6 +39,8 @@ dependencies {
     api(project(":resource"))
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
 
     //logs
     implementation("com.jakewharton.timber:timber:4.7.1")

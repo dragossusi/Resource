@@ -22,11 +22,11 @@ abstract class BaseResourceObserver<T : CompletionResource>(
     private val onFinishListeners = mutableListOf<OnFinishListener>()
     private val onFailureListeners = mutableListOf<OnFailureListener>()
 
-    fun onFinish(listener: OnFinishListener) {
+    fun addOnFinishListener(listener: OnFinishListener) {
         onFinishListeners += listener
     }
 
-    fun onFailure(listener: OnFailureListener) {
+    fun addOnFailureListener(listener: OnFailureListener) {
         onFailureListeners += listener
     }
 
@@ -69,4 +69,16 @@ abstract class BaseResourceObserver<T : CompletionResource>(
         }
     }
 
+}
+
+fun <T, O : BaseResourceObserver<T>> O.onFinish(
+    listener: OnFinishListener
+) = apply {
+    addOnFinishListener(listener)
+}
+
+fun <T, O : BaseResourceObserver<T>> O.onFailure(
+    listener: OnFailureListener
+) = apply {
+    addOnFailureListener(listener)
 }

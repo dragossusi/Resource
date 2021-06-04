@@ -2,6 +2,7 @@ package ro.dragossusi.observer
 
 import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.DataResource
+import ro.dragossusi.resource.OnCompletedListener
 import ro.dragossusi.resource.OnFailureListener
 import ro.dragossusi.resource.OnSuccessListener
 
@@ -17,7 +18,7 @@ class DataResourceObserver<T>(
 
     private val onSuccessListeners = mutableListOf<OnSuccessListener<T>>()
 
-    fun onSuccess(listener: OnSuccessListener<T>) {
+    fun addOnSuccessListener(listener: OnSuccessListener<T>) {
         onSuccessListeners += listener
     }
 
@@ -31,4 +32,10 @@ class DataResourceObserver<T>(
         }
     }
 
+}
+
+fun <T> DataResourceObserver<T>.onSuccess(
+    listener: OnSuccessListener<T>
+): DataResourceObserver<T> = apply {
+    addOnSuccessListener(listener)
 }

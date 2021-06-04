@@ -24,6 +24,9 @@ open class CompletionResource(
     val isLoading: Boolean
         get() = status == ResourceStatus.LOADING
 
+    val isFinished: Boolean
+        get() = isFailed || isSuccessful
+
     fun requireError(): MessageData = error ?: throw Exception("Error null, status: $status")
 
     companion object {

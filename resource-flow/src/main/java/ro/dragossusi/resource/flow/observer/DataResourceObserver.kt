@@ -5,7 +5,6 @@ import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.DataResource
 import ro.dragossusi.resource.OnSuccessListener
 import ro.dragossusi.resource.flow.extensions.onSuccess
-import ro.dragossusi.sevens.android.livedata.observer.ResourceObserver
 
 class DataResourceObserver<T>(
     errorHandler: MessageDataHandler?,
