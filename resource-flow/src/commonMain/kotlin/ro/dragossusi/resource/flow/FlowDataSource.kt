@@ -18,7 +18,7 @@ interface FlowDataSource {
 fun <T> FlowDataSource.resourceFlow(
     logErrors: Boolean = true,
     block: suspend () -> T
-) = resourceFlow<T>(context, logErrors, block)
+) = resourceFlow(context, logErrors, block)
 
 fun FlowDataSource.completionFlow(
     logErrors: Boolean = true,
