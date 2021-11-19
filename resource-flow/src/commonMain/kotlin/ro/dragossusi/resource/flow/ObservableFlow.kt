@@ -1,9 +1,11 @@
 package ro.dragossusi.resource.flow
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flattenConcat
 
-@Deprecated("don't use this, use SignalFlow", level = DeprecationLevel.ERROR)
-class ObservableFlow<T>() {
+class ObservableFlow<T> {
 
     private val changeFlow = MutableStateFlow<Flow<T>>(emptyFlow())
 

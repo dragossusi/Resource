@@ -24,6 +24,14 @@ fun <T> Flow<T>.startWithNull(): Flow<T?> {
     }
 }
 
+fun <R : Resource> Flow<R>.onLoadingChanged(
+    listener: OnLoadingChangedListener
+): Flow<R> {
+    return onEach {
+        listener.onLoadingChanged(it.isLoading)
+    }
+}
+
 fun <R : Resource> Flow<R>.onError(
     body: OnFailureListener
 ): Flow<R> {

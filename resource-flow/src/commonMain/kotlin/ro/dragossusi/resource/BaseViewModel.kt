@@ -3,21 +3,18 @@ package ro.dragossusi.resource
 import kotlinx.coroutines.flow.*
 import ro.dragossusi.CommonViewModel
 import ro.dragossusi.coroutineScope
-import ro.dragossusi.resource.flow.ObservableFlow
-import ro.dragossusi.resource.flow.ResourceFlow
+import ro.dragossusi.resource.flow.ObservableResourceFlow
+import ro.dragossusi.resource.flow.SignalFlow
 
-@Deprecated("loading is not tested")
 abstract class BaseViewModel : CommonViewModel() {
 
-    private val requests = MutableStateFlow<List<ResourceFlow>>(emptyList())
+    private val requests = MutableStateFlow<List<Flow<Boolean>>>(emptyList())
 
-    protected val _loadingLiveData: StateFlow<Boolean> = requests.flatMapLatest {
-        if (it.isEmpty()) flowOf(false)
+    protected val _loadingLiveData: StateFlow<Boolean> = requests.flatMapLatest { list ->
+        if (list.isEmpty()) flowOf(false)
         else {
-            combine(*it.toTypedArray()) { resources ->
-                resources.any {
-                    it.isLoading
-                }
+            combine(list) { resources ->
+                resources.any { it }
             }
         }
     }.stateIn(coroutineScope, SharingStarted.Eagerly, false)
@@ -26,21 +23,26 @@ abstract class BaseViewModel : CommonViewModel() {
     val loadingStateFlow: StateFlow<Boolean> = _loadingLiveData
 
     @Suppress("unused")
-    protected fun <T> observableData() = ObservableFlow<DataResource<T>>().also {
-        addLoadingSource(it.flow)
+    protected fun <T> signalFlow() = SignalFlow<T>()
+
+
+    @Suppress("unused")
+    protected fun <T> observableData() = ObservableResourceFlow<DataResource<T>>().also {
+        addLoadingSource(it.loadingFlow)
     }
 
     @Suppress("unused")
-    protected fun observableCompletion() = ObservableFlow<CompletionResource>().also {
-        addLoadingSource(it.flow)
+    protected fun observableCompletion() = ObservableResourceFlow<CompletionResource>().also {
+        addLoadingSource(it.loadingFlow)
     }
 
 
-    fun addLoadingSource(source: ResourceFlow) {
+    fun addLoadingSource(source: Flow<Boolean>) {
         requests.value += (requests.value + source)
     }
 
-    fun removeLoadingSource(source: ResourceFlow) {
+    @Suppress("unused")
+    fun removeLoadingSource(source: Flow<Boolean>) {
         requests.value = (requests.value - source)
     }
 
