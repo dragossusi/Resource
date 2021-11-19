@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Resource.resource-flow.commonMain" target="1.8" />
+      <module name="Resource.resource-flow.commonTest" target="1.8" />
+      <module name="Resource.resource-flow.jvmMain" target="1.8" />
+      <module name="Resource.resource-flow.jvmTest" target="1.8" />
+      <module name="Resource.resource.commonMain" target="1.8" />
+      <module name="Resource.resource.commonTest" target="1.8" />
+      <module name="Resource.resource.jvmMain" target="1.8" />
+      <module name="Resource.resource.jvmTest" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

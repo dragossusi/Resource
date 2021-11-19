@@ -23,6 +23,7 @@ class DataResourceObserver<T>(
     }
 
     override fun onSuccessStatus(resource: DataResource<T>) {
+        val successResource = resource as DataResource.Success<T>
         onSuccess(resource.data)
     }
 
@@ -34,6 +35,7 @@ class DataResourceObserver<T>(
 
 }
 
+@Suppress("unused")
 fun <T> DataResourceObserver<T>.onSuccess(
     listener: OnSuccessListener<T>
 ): DataResourceObserver<T> = apply {

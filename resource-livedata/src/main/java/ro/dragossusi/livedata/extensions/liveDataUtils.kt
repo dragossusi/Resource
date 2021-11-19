@@ -1,13 +1,10 @@
 package ro.dragossusi.livedata.extensions
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import ro.dragossusi.livedata.CompletionLiveData
 import ro.dragossusi.livedata.ResourceLiveData
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.DataResource
-import ro.dragossusi.resource.ResourceStatus
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -20,11 +17,11 @@ internal fun <T> resourceLiveData(
     block: suspend () -> T
 ): ResourceLiveData<T> = liveData(context) {
     try {
-        emit(DataResource.loading())
+        emit(DataResource.Loading())
         val data = block()
-        emit(DataResource.success<T>(data))
+        emit(DataResource.Success(data))
     } catch (t: Throwable) {
-        emit(DataResource.error<T>(t))
+        emit(DataResource.Error(t))
     }
 }
 
@@ -33,10 +30,10 @@ internal fun completionLiveData(
     block: suspend () -> Unit
 ): CompletionLiveData = liveData(context) {
     try {
-        emit(CompletionResource.loading())
+        emit(CompletionResource.Loading)
         block()
-        emit(CompletionResource.completed())
+        emit(CompletionResource.Completed)
     } catch (t: Throwable) {
-        emit(CompletionResource.error(t))
+        emit(CompletionResource.Error(t))
     }
 }

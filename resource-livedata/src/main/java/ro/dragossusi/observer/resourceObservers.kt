@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import ro.dragossusi.livedata.ObservableLiveData
 import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.CompletionResource
+import ro.dragossusi.resource.isFinished
 
 fun <T> dataObserver(
     errorHandler: MessageDataHandler?

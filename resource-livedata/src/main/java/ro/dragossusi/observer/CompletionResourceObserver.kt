@@ -1,10 +1,8 @@
 package ro.dragossusi.observer
 
-import kotlinx.coroutines.flow.flowOf
 import ro.dragossusi.messagedata.handler.MessageDataHandler
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.OnCompletedListener
-import ro.dragossusi.resource.OnSuccessListener
 
 /**
  *
@@ -33,6 +31,7 @@ class CompletionResourceObserver(
 
 }
 
+@Suppress("unused")
 fun CompletionResourceObserver.onCompleted(
     listener: OnCompletedListener
 ): CompletionResourceObserver = apply {

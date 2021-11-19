@@ -2,10 +2,10 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.0.2")
+        classpath("com.android.tools.build:gradle:${Versions.android}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -15,13 +15,14 @@ buildscript {
 
 plugins {
     `maven-publish`
+    kotlin("multiplatform") version Versions.kotlin apply false
 }
 
 allprojects {
     repositories {
-        google()
-        jcenter()
         mavenLocal()
+        mavenCentral()
+        google()
     }
 }
 

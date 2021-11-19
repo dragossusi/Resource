@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="resource-flow-jvm">
+    <output-path>$PROJECT_DIR$/resource-flow/build/libs</output-path>
+    <root id="archive" name="resource-flow-jvm.jar">
+      <element id="module-output" name="Resource.resource-flow.jvmMain" />
+    </root>
+  </artifact>
+</component>

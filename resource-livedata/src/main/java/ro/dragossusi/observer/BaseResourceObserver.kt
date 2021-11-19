@@ -5,17 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import ro.dragossusi.messagedata.MessageData
 import ro.dragossusi.messagedata.handler.MessageDataHandler
-import ro.dragossusi.resource.CompletionResource
-import ro.dragossusi.resource.OnFailureListener
-import ro.dragossusi.resource.OnFinishListener
-import ro.dragossusi.resource.ResourceStatus
+import ro.dragossusi.resource.*
 
 /**
  *
  * @author Dragos
  * @since 06.07.2020
  */
-abstract class BaseResourceObserver<T : CompletionResource>(
+abstract class BaseResourceObserver<T : Resource>(
     val messageDataHandler: MessageDataHandler?
 ) : Observer<T?> {
 
@@ -43,7 +40,7 @@ abstract class BaseResourceObserver<T : CompletionResource>(
             ResourceStatus.ERROR -> {
                 onFinished(false)
                 val error = resource.requireError()
-                if (messageDataHandler != null && messageDataHandler.routeErrorData(error)) return
+                if (messageDataHandler != null && messageDataHandler.routeMessageData(error)) return
                 onFailure(error)
             }
             ResourceStatus.SUCCESS -> {
@@ -71,12 +68,14 @@ abstract class BaseResourceObserver<T : CompletionResource>(
 
 }
 
+@Suppress("unused")
 fun <T, O : BaseResourceObserver<T>> O.onFinish(
     listener: OnFinishListener
 ) = apply {
     addOnFinishListener(listener)
 }
 
+@Suppress("unused")
 fun <T, O : BaseResourceObserver<T>> O.onFailure(
     listener: OnFailureListener
 ) = apply {

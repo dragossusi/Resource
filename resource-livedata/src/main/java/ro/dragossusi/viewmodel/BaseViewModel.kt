@@ -6,6 +6,7 @@ import ro.dragossusi.livedata.LoadingLiveData
 import ro.dragossusi.livedata.ObservableLiveData
 import ro.dragossusi.resource.CompletionResource
 import ro.dragossusi.resource.DataResource
+import ro.dragossusi.resource.Resource
 
 
 /**
@@ -32,7 +33,7 @@ abstract class BaseViewModel : ViewModel() {
         return observable
     }
 
-    fun addLoadingSource(source: LiveData<out CompletionResource?>) {
+    fun addLoadingSource(source: LiveData<out Resource?>) {
         _loadingLiveData += source
     }
 
