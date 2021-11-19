@@ -23,7 +23,7 @@ abstract class BaseViewModel : CommonViewModel() {
     }.stateIn(coroutineScope, SharingStarted.Eagerly, false)
 
     @Suppress("unused")
-    val loadingLiveData: StateFlow<Boolean> = _loadingLiveData
+    val loadingStateFlow: StateFlow<Boolean> = _loadingLiveData
 
     @Suppress("unused")
     protected fun <T> observableData() = ObservableFlow<DataResource<T>>().also {

@@ -4,6 +4,7 @@ import io.github.aakira.napier.Napier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import ro.dragossusi.resource.*
+import ro.dragossusi.resource.flow.DataFlow
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -109,4 +110,8 @@ fun <T> Flow<List<T>>.firstPageEmpty(
 ) = onStart {
     if (page == 1L)
         emit(emptyList())
+}
+
+fun DataFlow<*>.toCompletionFlow() = map {
+    it.toCompletion()
 }
