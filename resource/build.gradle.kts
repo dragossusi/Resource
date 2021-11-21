@@ -5,12 +5,11 @@ plugins {
     signing
 }
 kotlin {
-    /* Targets configuration omitted.
-    *  To find out how to configure the targets, please follow the link:
-    *  https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#setting-up-targets */
 
-    android {
-        publishLibraryVariants("release", "debug")
+    if (Features.isAndroidEnabled) {
+        android {
+            publishLibraryVariants("release", "debug")
+        }
     }
     jvm()
     js(IR)
@@ -29,8 +28,10 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val androidMain by getting {
-            dependencies {
+        if (Features.isAndroidEnabled) {
+            val androidMain by getting {
+                dependencies {
+                }
             }
         }
         val jvmMain by getting {
@@ -66,6 +67,7 @@ publishing {
         }
     }
 }
+
 if (Features.isAndroidEnabled) {
     apply(plugin = "install-android")
 }
