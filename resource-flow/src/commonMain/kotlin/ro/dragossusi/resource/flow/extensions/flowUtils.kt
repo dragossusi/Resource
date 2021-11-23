@@ -1,8 +1,8 @@
 package ro.dragossusi.resource.flow.extensions
 
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import ro.dragossusi.logger.TagLogger
 import ro.dragossusi.resource.*
 import ro.dragossusi.resource.flow.DataFlow
 import kotlin.coroutines.CoroutineContext
@@ -12,18 +12,21 @@ import kotlin.coroutines.CoroutineContext
  * @author Dragos
  * @since 15.06.2020
  */
-fun <T> Flow<T>.logErrors(message: String, tag: String? = null): Flow<T> {
+@Suppress("unused")
+fun <T> Flow<T>.logErrors(logger: TagLogger): Flow<T> {
     return catch {
-        Napier.e(message, it, tag)
+        logger.e(it)
     }
 }
 
+@Suppress("unused")
 fun <T> Flow<T>.startWithNull(): Flow<T?> {
     return onStart<T?> {
         emit(null)
     }
 }
 
+@Suppress("unused")
 fun <R : Resource> Flow<R>.onLoadingChanged(
     listener: OnLoadingChangedListener
 ): Flow<R> {
@@ -32,6 +35,7 @@ fun <R : Resource> Flow<R>.onLoadingChanged(
     }
 }
 
+@Suppress("unused")
 fun <R : Resource> Flow<R>.onError(
     body: OnFailureListener
 ): Flow<R> {
@@ -46,6 +50,7 @@ fun <R : Resource> Flow<R>.onError(
 /**
  * Execute on success
  */
+@Suppress("unused")
 fun <T> Flow<DataResource<T>>.onSuccess(
     body: OnSuccessListener<T>
 ): Flow<DataResource<T>> = onEach {
@@ -56,6 +61,7 @@ fun <T> Flow<DataResource<T>>.onSuccess(
 /**
  * Execute on finish
  */
+@Suppress("unused")
 fun <R : Resource> Flow<R>.onFinish(
     body: suspend (Boolean) -> Unit
 ): Flow<R> = onEach {
@@ -66,6 +72,7 @@ fun <R : Resource> Flow<R>.onFinish(
 /**
  * Execute on completed
  */
+@Suppress("unused")
 fun <T : CompletionResource> Flow<T>.onCompleted(
     body: suspend () -> Unit
 ): Flow<T> = onEach {
@@ -76,7 +83,7 @@ fun <T : CompletionResource> Flow<T>.onCompleted(
 
 internal fun <T> resourceFlow(
     context: CoroutineContext = Dispatchers.Default,
-    logErrors: Boolean = true,
+    logger: TagLogger? = null,
     body: suspend () -> T
 ): Flow<DataResource<T>> = flow {
     try {
@@ -84,8 +91,7 @@ internal fun <T> resourceFlow(
         emit(DataResource.Success(result))
     } catch (e: Exception) {
         //log error
-        if (logErrors)
-            Napier.e("resourceFlow Error", e)
+        logger?.e(e)
         //create resource
         val resource = DataResource.Error<T>(e)
         //emit resource
@@ -95,7 +101,7 @@ internal fun <T> resourceFlow(
 
 internal fun completionFlow(
     context: CoroutineContext = Dispatchers.Default,
-    logErrors: Boolean = true,
+    logger: TagLogger? = null,
     body: suspend () -> Unit
 ): Flow<CompletionResource> = flow {
     try {
@@ -103,8 +109,7 @@ internal fun completionFlow(
         emit(CompletionResource.Completed)
     } catch (e: Exception) {
         //log error
-        if (logErrors)
-            Napier.e("completionFlow Error", e)
+        logger?.e(e)
         //create resource
         val resource = CompletionResource.Error(e)
         //emit resource
@@ -113,6 +118,7 @@ internal fun completionFlow(
 }.flowOn(context)
 
 
+@Suppress("unused")
 fun <T> Flow<List<T>>.firstPageEmpty(
     page: Long
 ) = onStart {
@@ -120,6 +126,7 @@ fun <T> Flow<List<T>>.firstPageEmpty(
         emit(emptyList())
 }
 
+@Suppress("unused")
 fun DataFlow<*>.toCompletionFlow() = map {
     it.toCompletion()
 }

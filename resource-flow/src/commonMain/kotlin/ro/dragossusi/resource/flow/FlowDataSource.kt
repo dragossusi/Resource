@@ -1,5 +1,6 @@
 package ro.dragossusi.resource.flow
 
+import ro.dragossusi.logger.TagLogger
 import ro.dragossusi.resource.flow.extensions.completionFlow
 import ro.dragossusi.resource.flow.extensions.resourceFlow
 import kotlin.coroutines.CoroutineContext
@@ -16,11 +17,11 @@ interface FlowDataSource {
 }
 
 fun <T> FlowDataSource.resourceFlow(
-    logErrors: Boolean = true,
+    logger: TagLogger? = null,
     block: suspend () -> T
-) = resourceFlow(context, logErrors, block)
+) = resourceFlow(context, logger, block)
 
 fun FlowDataSource.completionFlow(
-    logErrors: Boolean = true,
+    logger: TagLogger? = null,
     block: suspend () -> Unit
-) = completionFlow(context, logErrors, block)
+) = completionFlow(context, logger, block)

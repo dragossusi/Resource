@@ -5,7 +5,8 @@ repositories {
     mavenCentral()
     google()
 }
+val androidVersion = project.property("sevens.android.gradle.version").toString()
 
-dependencies{
-    implementation("com.android.tools.build:gradle:4.2.2")
+dependencies {
+    implementation("com.android.tools.build:gradle:$androidVersion")
 }

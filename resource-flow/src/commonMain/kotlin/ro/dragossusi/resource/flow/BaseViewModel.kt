@@ -1,15 +1,18 @@
-package ro.dragossusi.resource
+package ro.dragossusi.resource.flow
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import ro.dragossusi.CommonViewModel
 import ro.dragossusi.coroutineScope
-import ro.dragossusi.resource.flow.ObservableResourceFlow
-import ro.dragossusi.resource.flow.SignalFlow
+import ro.dragossusi.resource.CompletionResource
+import ro.dragossusi.resource.DataResource
 
 abstract class BaseViewModel : CommonViewModel() {
 
     private val requests = MutableStateFlow<List<Flow<Boolean>>>(emptyList())
 
+    @Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
+    @OptIn(ExperimentalCoroutinesApi::class)
     protected val _loadingLiveData: StateFlow<Boolean> = requests.flatMapLatest { list ->
         if (list.isEmpty()) flowOf(false)
         else {

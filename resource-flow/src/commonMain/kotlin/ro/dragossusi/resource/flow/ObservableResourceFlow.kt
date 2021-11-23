@@ -1,5 +1,6 @@
 package ro.dragossusi.resource.flow
 
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import ro.dragossusi.resource.Resource
 import ro.dragossusi.resource.flow.extensions.onLoadingChanged
@@ -11,6 +12,7 @@ class ObservableResourceFlow<R : Resource>() {
 
     private val changeFlow = MutableStateFlow<Flow<R>>(emptyFlow())
 
+    @OptIn(FlowPreview::class)
     val flow: Flow<R> = changeFlow.flattenConcat()
         .onLoadingChanged { _loadingFlow.value = it }
 

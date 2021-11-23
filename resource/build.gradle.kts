@@ -4,6 +4,7 @@ plugins {
     `maven-publish`
     signing
 }
+
 kotlin {
 
     if (Features.isAndroidEnabled) {
@@ -12,12 +13,13 @@ kotlin {
         }
     }
     jvm()
-    js(IR)
+    if (Features.isJsEnabled) {
+        js(IR)
+    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-
                 //messagedata
                 api("ro.dragossusi:messagedata:${Versions.messagedata}")
             }
@@ -40,11 +42,12 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(kotlin("test-junit"))
             }
         }
-        val jsMain by getting {
-            dependencies {
+        if (Features.isJsEnabled) {
+            val jsMain by getting {
+                dependencies {
+                }
             }
         }
     }

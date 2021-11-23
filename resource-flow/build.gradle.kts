@@ -2,7 +2,9 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     `maven-publish`
+    signing
 }
+
 kotlin {
 
     if (Features.isAndroidEnabled) {
@@ -11,21 +13,22 @@ kotlin {
         }
     }
     jvm()
-    js(IR)
+    if (Features.isJsEnabled) {
+        js(IR)
+    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                //local
                 api(project(":resource"))
-
-                //logs
-                implementation("io.github.aakira:napier:${Versions.napier}")
 
                 //internal
                 implementation("ro.dragossusi:viewmodel:${Versions.viewmodel}")
+                api("ro.dragossusi:logger:${Versions.logger}")
 
                 //kotlinx
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${project.coroutinesVersion}")
             }
         }
         val commonTest by getting {
@@ -46,22 +49,22 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(kotlin("test-junit"))
             }
         }
-        val jsMain by getting {
-            dependencies {
+        if (Features.isJsEnabled) {
+            val jsMain by getting {
+                dependencies {
+                }
             }
         }
     }
 }
 
-
 publishing {
     publications {
         publications.withType<MavenPublication> {
             pom {
-                name.set("Resource.kt")
+                name.set("Resource")
                 description.set("Android objects to observe loading completion and error")
                 url.set("http://www.example.com/library")
                 licenses {
