@@ -14,14 +14,16 @@ interface FlowDataSource {
 
     val context: CoroutineContext
 
+    val tagLogger: TagLogger?
+
 }
 
 fun <T> FlowDataSource.resourceFlow(
-    logger: TagLogger? = null,
+    logger: TagLogger? = tagLogger,
     block: suspend () -> T
 ) = resourceFlow(context, logger, block)
 
 fun FlowDataSource.completionFlow(
-    logger: TagLogger? = null,
+    logger: TagLogger? = tagLogger,
     block: suspend () -> Unit
 ) = completionFlow(context, logger, block)
