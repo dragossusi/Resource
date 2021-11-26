@@ -7,5 +7,5 @@ object Versions {
 
     const val logger = "1.1.0"
 
-    const val app = "4.0.0"
+    const val app = "4.0.1"
 }

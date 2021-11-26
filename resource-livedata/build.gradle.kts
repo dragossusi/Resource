@@ -38,7 +38,7 @@ dependencies {
     api("ro.dragossusi:livedata-common:${Versions.commons}")
 
     //logs
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    api("ro.dragossusi:logger:${Versions.logger}")
 
     testImplementation("junit:junit:4.13.2")
 
