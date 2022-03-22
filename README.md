@@ -10,7 +10,7 @@ Gradle:
 
 ```gradle
 dependencies {
-  implementation 'ro.dragossusi:resource:1.0.4'
+  implementation 'ro.dragossusi:resource:4.0.1'
 }
 ```
 
@@ -26,5 +26,5 @@ Gradle:
 
 ```gradle
 dependencies {
-  implementation 'ro.dragossusi:resource-livedata:1.0.4'
+  implementation 'ro.dragossusi:resource-livedata:4.0.1'
 }
