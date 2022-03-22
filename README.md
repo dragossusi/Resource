@@ -26,5 +26,5 @@ Gradle:
 
 ```gradle
 dependencies {
-  implementation 'ro.dragossusi:resource-livedata:4.0.1'
+  implementation 'ro.dragossusi:resource-livedata:3.0.3'
 }
